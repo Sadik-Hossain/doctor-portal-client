@@ -3,6 +3,7 @@ import "./App.css";
 import About from "./Pages/About/About";
 import Appointment from "./Pages/Appointment/Appointment";
 import Contact from "./Pages/Contact/Contact";
+import Footer from "./Pages/Home/Footer";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Review from "./Pages/Review/Review";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/login" element={<Login />}></Route>
       </Routes>
+      <Footer/>
     </div>
   );
 }

@@ -12,7 +12,11 @@ const Info = () => {
         img={clock}
         bgClass="bg-gradient-to-r  from-primary to-secondary"
       />
-      <InfoCard cardTitle="Our Locations" img={marker} bgClass="bg-accent" />
+      <InfoCard
+        cardTitle="Our Locations"
+        img={marker}
+        bgClass="bg-accent"
+      />
       <InfoCard
         cardTitle="Contact Us"
         img={phone}
