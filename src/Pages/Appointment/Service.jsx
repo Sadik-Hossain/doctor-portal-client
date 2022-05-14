@@ -19,7 +19,7 @@ const Service = ({ service, setTreatment }) => {
         <div class="card-actions justify-center">
 
             {/* 
-            //! ekahne button er bodole label use kra hyce, modal er jnno. kon button e click krle kon maodal show krbe tar jnno for attrib.
+            //! ekahne button er bodole label use kra hyce, modal er jnno. kon button e click krle kon maodal show krbe tar jnno for attrib. 
             */}
           <label
           for = 'booking-modal'
