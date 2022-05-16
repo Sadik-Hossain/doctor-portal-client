@@ -12,15 +12,15 @@ const AppointmentBanner = ({ date, setDate }) => {
 */
   return (
     <div
-      class="hero min-h-screen "
+      className="hero min-h-screen "
       style={{
         background: `url(${bg})`,
       }}
     >
-      <div class="hero-content flex-col lg:flex-row-reverse gap-24 lg:gap-56 ">
+      <div className="hero-content flex-col lg:flex-row-reverse gap-24 lg:gap-56 ">
         <img
           src={chair}
-          class="max-w-sm rounded-lg shadow-2xl aspect-w-16 aspect-h-9"
+          className="max-w-sm rounded-lg shadow-2xl aspect-w-16 aspect-h-9"
           alt="chair"
         />
         <div>
