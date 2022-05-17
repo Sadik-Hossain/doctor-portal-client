@@ -1,7 +1,12 @@
 import React from "react";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
+import Loading from "../Shared/Loading/Loading";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -10,14 +15,37 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-  if (user) {
-    console.log(user);
+  const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  let signInError;
+
+  if (error || signInError) {
+    signInError = (
+      <p className="text-red-500 ">{error?.message || gError?.message}</p>
+    );
   }
+  // * passing true for showing always
+  // if (true || loading || gLoading) {
+  //   return <Loading />;
+  // }
+  if (loading || gLoading) {
+    return <Loading />;
+  }
+
+  if (user || gUser) {
+    console.log(user || gUser);
+  }
+
+  const onSubmit = (data) => {
+    console.log(data);
+    signInWithEmailAndPassword(data.email, data.password);
+  };
+
   return (
     <div className="flex h-screen justify-center items-center">
-      <div className="card w-96 bg-base-100 shadow-xl">
+      <div className="card w-96 bg-base-100 shadow-xl border-solid border-2">
         <div className="card-body">
           <h2 className="text-center text-3xl font-bold">Login</h2>
 
@@ -25,6 +53,9 @@ const Login = () => {
           //* ================= login form =================
           */}
           <form onSubmit={handleSubmit(onSubmit)}>
+            {/* 
+          //* ==================== Email ======================
+*/}
             <div class="form-control w-full max-w-xs">
               <label class="label">
                 <span class="label-text">Email</span>
@@ -39,7 +70,8 @@ const Login = () => {
                     message: "email required",
                   },
                   pattern: {
-                    value: /[A-Z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                    value:
+                      /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                     message: "provide a valid email",
                   },
                 })}
@@ -58,6 +90,9 @@ const Login = () => {
               </label>
             </div>
 
+            {/* 
+//* ==================== Password ======================
+*/}
             <div class="form-control w-full max-w-xs">
               <label class="label">
                 <span class="label-text">Password</span>
@@ -91,8 +126,20 @@ const Login = () => {
               </label>
             </div>
 
-            <input className="btn w-full max-w-xs" type="submit" />
+            {signInError}
+
+            <input
+              className="btn w-full max-w-xs"
+              type="submit"
+              value="Login"
+            />
           </form>
+          <p>
+            New Doctor Portal?
+            <Link className="text-primary" to="/signup">
+              Create New Account
+            </Link>
+          </p>
           <div className="divider">OR</div>
 
           {/* 
