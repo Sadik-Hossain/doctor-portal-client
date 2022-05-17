@@ -29,7 +29,7 @@ const Navbar = () => {
         */}
         {user ? (
           //* logout method
-          <button onClick={logout} class="btn btn-ghost">
+          <button onClick={logout} className="btn btn-ghost">
             Logout
           </button>
         ) : (

@@ -21,7 +21,7 @@ const Service = ({ service, setTreatment }) => {
             //! ekahne button er bodole label use kra hyce, modal er jnno. kon button e click krle kon maodal show krbe tar jnno for attrib. 
             */}
           <label
-            for="booking-modal"
+            htmlFor="booking-modal"
             //* jkhn kno slot thakbe na, tokhon button disabled dekhabe
             disabled={slots.length === 0}
             // * data/ param pathathe arrow func. use krte hoy

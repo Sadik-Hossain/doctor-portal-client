@@ -16,34 +16,36 @@ const Login = () => {
   } = useForm();
 
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  let signInError;
   const navigate = useNavigate();
   const location = useLocation();
-
   let from = location.state?.from?.pathname || "/";
 
-  if (error || signInError) {
-    signInError = (
+  //*? using useEffect for avoiding error msg (render update)
+  //* user pawa gele jekhan theke asce sekhane pathay dewa
+  useEffect(() => {
+    // console.log(user || gUser);
+    if (user || gUser) {
+      navigate(from, { replace: true });
+    }
+  }, [user, gUser, from, navigate]);
+
+  let signInError;
+
+  if (error || gError) {
+    gError = (
       <p className="text-red-500 ">{error?.message || gError?.message}</p>
     );
   }
-  // * passing true for showing always
+  // * passing true for showing loading always [styling purpose]
   // if (true || loading || gLoading) {
   //   return <Loading />;
   // }
   if (loading || gLoading) {
     return <Loading />;
-  }
-
-  //* user pawa gele jekhan theke asce sekhane pathay dewa
-
-  // console.log(user || gUser);
-
-  if (user || gUser) {
-    navigate(from, { replace: true });
   }
 
   const onSubmit = (data) => {
@@ -64,14 +66,14 @@ const Login = () => {
             {/* 
           //* ==================== Email ======================
 */}
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Email</span>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Email</span>
               </label>
               <input
                 type="email"
                 placeholder="Your Email"
-                class="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full max-w-xs"
                 {...register("email", {
                   required: {
                     value: true,
@@ -101,14 +103,14 @@ const Login = () => {
             {/* 
 //* ==================== Password ======================
 */}
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Password</span>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Password</span>
               </label>
               <input
                 type="password"
                 placeholder="Your password"
-                class="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full max-w-xs"
                 {...register("password", {
                   required: {
                     value: true,
