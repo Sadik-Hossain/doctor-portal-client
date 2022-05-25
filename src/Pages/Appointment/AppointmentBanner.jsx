@@ -24,7 +24,10 @@ const AppointmentBanner = ({ date, setDate }) => {
           alt="chair"
         />
         <div>
-          <DayPicker mode="single" selected={date} onSelect={setDate} />
+          {/* 
+          //* date e dbl click krle error fix er soln. hocce onSelect er poriborte onDayClick deya
+          */}
+          <DayPicker mode="single" selected={date} onDayClick={setDate} />
           <p>You have selected: {format(date, "PP")}</p>
         </div>
       </div>

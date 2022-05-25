@@ -8,6 +8,8 @@ const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
   const logout = () => {
     signOut(auth);
+    //* signout krle localstorage clear kore dibo
+    localStorage.removeItem("accessToken");
   };
   const menuItems = (
     <>
@@ -23,6 +25,11 @@ const Navbar = () => {
       <li>
         <Link to="/contact">Contact</Link>
       </li>
+      {user && (
+        <li>
+          <Link to="/dashboard">dashboard</Link>
+        </li>
+      )}
       <li>
         {/* 
         //* login / logout based on user presence
@@ -72,6 +79,28 @@ const Navbar = () => {
       {/* for PC */}
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
+      </div>
+      <div className="navbar-end">
+        <label
+          tabIndex="1"
+          for="dashboard-sidebar"
+          className="btn btn-ghost lg:hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </label>
       </div>
     </div>
   );

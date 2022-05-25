@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
@@ -8,6 +8,7 @@ import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
 import Loading from "../Shared/Loading/Loading";
 import { Link, useNavigate } from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
   const {
@@ -22,7 +23,7 @@ const SignUp = () => {
     useCreateUserWithEmailAndPassword(auth);
 
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-
+  const [token] = useToken(user || gUser);
   const navigate = useNavigate();
 
   let signInError;
@@ -40,16 +41,27 @@ const SignUp = () => {
     return <Loading />;
   }
 
-  if (user || gUser) {
-    console.log(user || gUser);
+  //* age user theke thakle navigate kre ditam, ekhn token thakle navigate krbo
+  // if (user || gUser) {
+  //   console.log(user || gUser);
+  //   // navigate("/appointment");
+  // }
+
+  // console.log(user || gUser);
+  if (token) {
+    navigate("/appointment");
   }
+
+  // if (token) {
+  //   // console.log(token);
+  //   navigate("/appointment");
+  // }
 
   const onSubmit = async (data) => {
     // console.log(data);
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
     console.log("update done");
-    navigate("/appointment");
   };
   return (
     <div>
